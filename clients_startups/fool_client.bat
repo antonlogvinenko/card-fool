@@ -1,0 +1,1 @@
+D:\anton\installed\spyce-2.1\spyceCmd.py -l --conf "D:\anton\installed\spyce-2.1\www\fool_client\config.py"

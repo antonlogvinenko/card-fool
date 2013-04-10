@@ -1,0 +1,148 @@
+Структуры данных
+--------------------------------------------------------------
+[h0][h6][h7][h8][h9][hJ][hQ][hK][hA]
+[h0]-десять червей
+
+Масти:hearts, diamonds, spades, clubs
+[h0][d0][s0][c0]
+[h6<h7] - карта h7 лежит на карте h6.
+[10] - 10 любых карт
+
+Так же необходимо передать информацию о том, кто подкинул карту:
+[h0'name']
+[h0'name'<hJ]
+Это означает, что десять червей подкинул игрок name.
+
+В ответах сервера:
+"name" - игра
+(name) - игрок
+{option1}{option2}{option3} - опции игры
+
+_attacker_, _defender_, _fool_, _winner_ - это статус игрока
+
+
+
+
+Комментарии:
+--------------------------------------------------------------
+1. верхний и нижний регистр различаются. Т.е. [hJ] - правильно, [hj] - неправильно.
+_attacker_ - правильно,  _Attacker_ - неправильно.
+
+2. [h0(name)]. Клиент может использовать и отображать информацию о том, кто подкинул
+карту, хотя это и не обязательно. Это делается только для увеличения играбельности,
+так как ты видишь, кто тот, кто наподкидывал тебе.
+
+3. Все имена игроков, игр должны состоять из английских букв, цифр, _. (Пробела нет)
+
+
+
+Запросы игрока и ответы сервера
+--------------------------------------------------------------
+Запросы игрока: POST запросы. 
+Ответы сервера: Все данные передаются в теле, а не в заголовках. Формат следующий:
+        имя-параметра: значение параметра \n
+Передача всех компонентов ответа обязательна.
+Кодировка UTF-8.
+Далее приводится формат запросов клиента и ответа сервера:
+request
+response_str_1 \n
+response_str_2 \n
+...
+
+
+
+Регистрация, создание игр
+--------------------------------------------------------------
+command=register&name:UserName
+status:ok|fail
+message:message
+uid:StringValue
+
+command:createGame&uid:UserUID&gameName:GameName&numberOfPlayers: 2..6&retransfer:true|false&
+firstAttack5Cards:true|false&attack6Cards:true|false
+status:ok|fail
+message:message
+
+command:joinGame&uid:UserUID&gameName:GameName
+status:ok|fail
+message:message
+
+command:getListOfGames
+game:"MyGame"(Viktor)(Fedor){numberOfPlayers2}{attack6Cards}{firstAttack5Cards}{canRetransfer}
+game:"AnotherGame"(Viktor){numberOfPlayers2}{canRetransfer}
+
+
+
+Сообщения во время игры
+--------------------------------------------------------------
+command:getGameStatus&uid:UserID
+status:ok|fail
+message:message
+game:GameName
+table:[h6<h7][sA]
+deck:[12]
+trump:[s6]
+out:[d7]
+options:{attack6Cards}{firstAttack5Cards}{canRetransfer}
+player:1(Name1)PlayerStatus[число карт]|[h6][sA]
+player:2(Name2)PlayerStatus[число карт]|[h6][s0]
+active:2
+
+command:attack&uid:UserID&cards:[h6][s6]
+status:ok|fail
+message:Message
+
+command:cover&uid:UserID&cards:[h6<h7][s6<s7]
+status:ok|fail
+message:Message
+
+command:take&uid:UserID
+status:ok|fail
+message:Message
+
+command:retransfer&uid:UserID&cards:[h6][s6]
+status:ok|fail
+message:Message
+
+command:quit&uid:UserID
+status:ok|fail
+message:Message
+
+command:skip&uid:UserUID
+status:ok|fail
+message:Message
+
+
+
+Комментарии:
+--------------------------------------------------------------
+1. Менять местами строки ответа нельзя.
+message:Message
+status:ok
+Это неправильно, правильно:
+status:ok
+message:Message.
+
+2.Пробелов нет
+status: ok - неправильно
+status:ok - правильно
+
+
+
+Все варианты поля message
+--------------------------------------------------------------
+message в ответе сервера может принимать следующие значения:
+!1. Пустое. При статусе ok.
+!2. The user with such name is already registered 
+!3. The game with such name is already created
+!4. The user can't be in two games at one time
+!5. Invalid uid
+!6. Invalid game options
+!7. There is no game with such name
+!8. You have no game
+!9. You are not active player
+!10. Invalid cards combination
+!11. The game is not started yet
+!12. The game is already started
+!13. You can't skip your turn
+14. You must defend all cards

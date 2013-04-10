@@ -1,0 +1,16 @@
+status:ok
+message:
+
+status:ok
+message:
+uid:VIKTOR
+
+status:ok
+message:
+uid:VIKTOR1
+
+status:ok
+message:
+
+status:fail
+message:Game is not started yet

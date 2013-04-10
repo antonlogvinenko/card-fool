@@ -1,0 +1,23 @@
+status:ok
+message:
+
+status:ok
+message:
+uid:VIKTOR
+
+status:ok
+message:
+uid:VIKTOR1
+
+status:ok
+message:
+uid:VIKTOR2
+
+status:ok
+message:
+
+status:ok
+message:
+
+status:fail
+message:The game is already started

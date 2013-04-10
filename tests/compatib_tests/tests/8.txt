@@ -1,0 +1,7 @@
+command=restart&test=true
+command=register&name=VIKTOR
+command=register&name=VIKTOR1
+command=register&name=VIKTOR2
+command=createGame&uid=VIKTOR&gameName=GAMENAME&numberOfPlayers=2&retransfer=true&firstAttack5Cards=true&attack6Cards=true
+command=joinGame&uid=VIKTOR1&gameName=GAMENAME
+command=joinGame&uid=VIKTOR2&gameName=GAMENAME

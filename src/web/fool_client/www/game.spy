@@ -1,0 +1,221 @@
+[[.import names="pool,redirect,session,client_action"]]
+
+[[\
+response.addHeader('Cache-Control', 'no-cache, must-revalidate')
+if 'action' not in pool:
+    pool['action'] = client_action
+    pool['action'].initialize()
+]]
+
+[[!
+def get_game_status(self, api):
+    response = pool['action'].get_game_status(session['uid'])
+    session['status'] = response.get_status()
+    session['message'] = response.get_message()
+
+def handle_status_message(self, api, resp):
+    session['action_message'] = ""
+    if not resp.get_status():
+        session['action_message'] = resp.get_message()
+
+def refresh(self, api):pass
+
+def attack(self, api, players_cards):
+    self.handle_status_message( api, pool['action'].attack(session['uid'], players_cards) )
+
+def cover(self, api, players_cards):
+    self.handle_status_message( api, pool['action'].cover(session['uid'], players_cards) )
+
+def take(self, api):
+    self.handle_status_message( api, pool['action'].take(session['uid']) )
+
+def retransfer(self, api, players_cards):
+    self.handle_status_message( api, pool['action'].retransfer(session['uid'], players_cards) )
+
+def skip(self, api):
+    self.handle_status_message( api, pool['action'].skip(session['uid']) )
+
+def quit(self, api):
+    self.handle_status_message( api, pool['action'].quit(session['uid']) )
+    session['join'] = ''
+    session['message'] = ''
+]]
+
+<head>
+<script src='cards_manager.js'>
+</script>
+</head>
+
+[[\
+resp = pool['action'].get_game_status(session['uid'], session['using_ai'])
+if resp.get_status():
+    session['status'] = 'ok'
+else:
+    session['status'] = 'fail'
+session['message'] = resp.get_message()
+session['game_status'] = resp
+]]
+
+
+<body onload=bodyOnLoad()>
+[[  if session['join'] == '': {
+]]
+    <a href='lobby.spy'>Return to the lobby</a>
+<input type='hidden' id=is_active value='True'/>
+        
+[[  } elif session['status'] == 'ok': { ]]
+<fieldset style="clear: both">
+    <h1>
+    [[  status = session['game_status'].get_my_info().get_status()
+        if status == '_winner_': {
+    ]]
+        You are winner!
+    [[  } elif status == '_fool_': {
+    ]]
+        You are looser. Ha-Ha-Ha.
+    [[  }
+    ]]
+    </h1>
+    <table><tr>
+        <td>
+            <img src='img\b1fv.png'/>
+            <div>OUT: [[= len(session['game_status'].get_out()) ]]</div>
+        </td>     
+        <td>
+            <img src=[[= 'img\\' + str(session['game_status'].get_trump_card()).lower() + '.png']]/>
+            <div>TRUMP</div>
+        </td>     
+        <td>
+            <img src='img\b1fv.png'/>
+            <div>DECK: [[= session['game_status'].get_cards_in_deck() ]] </div>
+        </td>     
+    [[  player = session['game_status'].get_my_info()
+        name = player.get_name()
+        order = "order " + str(player.get_order())
+        status = ''
+        if player.get_status() != '': {
+            status = "status " + str(player.get_status())
+        }
+        event = ''
+        active = ''
+        if (player.is_active()): { 
+            active = "active player"
+            event = "onmousedown='dragging_mode_on(this)'"
+        }  
+    ]]
+        <input type='hidden' id=is_active value='[[= (not session['using_ai'] and player.is_active()) or not player.is_playing() ]]'/>
+        <td><img src=[[= 'img\\enemy' + str(player.get_order()) + '.gif']]></img></td>
+        <td>
+            <div>[[= name]]</div>
+            <div>[[= order]]</div>
+            <div>[[= status]]</div>
+            <div>[[= active]]</div>
+            [[if session['using_ai']: {]]
+            <div>AI enabled</div>
+            [[ } ]]
+
+        </td>
+    [[  for player in session['game_status'].get_other_players_info(): {
+            name = player.get_name()
+            order = "Order " + str(player.get_order())
+            status = ''
+            if player.get_status() != '': {
+                status = "Status " + str(player.get_status())
+            }
+            cards = "Has " + str(player.get_number_of_cards()) + " card(s)"
+            active = ''
+            if (player.is_active()): { active = "active player" } 
+    ]]
+        <td><img src=[[= 'img\\enemy' + str(player.get_order()) + '.gif']]></img></td>  
+        <td>
+            <div>[[= name]]</div>
+            <div>[[= order]]</div>
+            <div>[[= status]]</div>
+            <div>[[= cards]]</div>
+            <div>[[= active]]</div>
+        </td>
+    [[    } 
+    ]]
+    </tr></table>
+</fieldset>
+    
+<br><br>
+
+<fieldset style="clear: both">
+    [[    print 'Table:'
+    ]]
+    <table id='table'><tr>
+    [[
+        for bottom_card in session['game_status'].get_table().get_bottom_cards(): {
+            id = bottom_card.get_card_str()
+    ]]
+        <td><img border=0 id=[[= id]] src='[[= 'img\\' + id.lower() + '.png']]'/></td>
+    [[
+        }
+    ]]
+        <td><img id='empty' border=0 src='img\b1fv.png'/></td>   
+    </tr></table>
+</fieldset>
+
+<br><br>    
+
+<fieldset style="clear: both">
+    [[  print 'Your cards:'
+    ]]     
+    <table style="width:200px" id='player_cards'><tr>
+    [[
+        for my_card in session['game_status'].get_my_info().get_cards(): {
+            id = str(my_card)
+    ]]
+        <td><img border=1 id=[[= id]] [[= event]] src=[[= 'img\\' + id.lower() + '.png']]/></td>
+    [[  }
+    ]]
+        <td><img id='empty2' border=0 src='img\b1fv.png'/></td>
+    </tr></table>
+    <input type='hidden' id='table_data' value="[[= session['game_status'].get_table()]]"/>
+</fieldset>
+
+    
+    
+    [[ } else: { ]]
+<h1>[[= session['message'] ]]</h1>
+<input type='hidden' id=is_active value='False'/>
+[[ } ]]
+
+
+<br><br>
+[[  if session['join'] != '': {
+]]
+
+<fieldset style="clear: both">
+    <f:form style="clear: both">
+[[if not session['using_ai']: {]]
+    <f:hidden id='players_cards' name='players_cards'/>
+    <f:submit handler="self.attack" value="Attack"/>
+    <f:submit handler="self.cover" value="Cover"/>
+    <f:submit handler="self.take" value="Take"/>
+    <f:submit handler="self.retransfer" value="Retransfer"/>
+    <f:submit handler="self.skip" value="Skip"/>
+[[ } ]]
+    <f:submit handler="self.quit" value="Quit"/>
+    </f:form>
+</fieldset>
+[[  }  ]]
+
+<div>[[= session['action_message'] ]]</div>
+
+<br>
+
+<f:form style="clear: both" id='submitter' >
+    <f:submit handler="self.refresh" value="Refresh" />
+</f:form>
+
+
+<div id='txt'/>
+
+
+</body>
+[[
+session['action_message'] = ""
+
+]]

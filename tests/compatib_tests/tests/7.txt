@@ -1,0 +1,6 @@
+command=restart&test=true
+command=register&name=VIKTOR
+command=register&name=VIKTOR1
+command=createGame&uid=VIKTOR&gameName=GAMENAME&numberOfPlayers=2&retransfer=true&firstAttack5Cards=true&attack6Cards=true
+command=createGame&uid=VIKTOR1&gameName=GAMENAME2&numberOfPlayers=6&retransfer=true&firstAttack5Cards=false&attack6Cards=false
+command=getListOfGames

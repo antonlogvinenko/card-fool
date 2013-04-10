@@ -1,0 +1,194 @@
+[[.import names="pool,session,cookie,redirect"]]
+
+[[\
+response.addHeader('Cache-Control', 'no-cache, must-revalidate')
+if 'action' not in pool:
+    pool['action'] = client_action
+    pool['action'].initialize()
+]]                        
+
+[[!
+def refresh(self, api):pass
+
+def create_game(self, api, game_name, number_of_players, retransfer=False,
+                attack_six=False, attack_five=False):
+    session['using_ai'] = False
+    session['status'] = ''
+    session['message'] = ''
+    session['join_status'] = ''
+    if attack_six != False: attack_six = True
+    if attack_five != False: attack_five = True
+    if retransfer != False: retransfer = True
+    resp = pool['action'].create_game(session['uid'], game_name,
+                    number_of_players, retransfer, attack_six, attack_five)
+    if not resp.get_status():
+        session['status'] = 'fail'
+        session['message'] = resp.get_message()
+        session['join_status'] = 'fail'
+    else:
+        session['join'] = game_name
+        session['join_status'] = 'ok'
+        session['status'] = 'ok'
+
+def ai_setter(self, api):
+    if session['using_ai']:
+       session['using_ai'] = False
+    else:
+        session['using_ai'] = True
+
+def join_game(self, api, game_name):
+    session['status'] = ''
+    session['message'] = ''
+    resp = pool['action'].join_game(session['uid'], game_name)
+    session['join_status'] = ''
+    if not resp.get_status():
+        session['status'] = 'fail'
+        session['message'] = resp.get_message()
+        session['join_status'] = 'fail'
+    else:
+        session['join'] = game_name
+        session['join_status'] = 'ok'
+        session['status'] = 'ok'
+
+def register(self, api, name):
+    resp = pool['action'].register(name)
+    session['server_error'] = ''
+    session['status'] = ''
+    session['message'] = ''
+    session['name'] = ''
+    session['uid'] = ''
+    session['registration_status'] = ''
+    if not resp.is_valid():
+        session['server_error'] = str(resp.get_error())
+        session['registration_status'] = 'fail'
+    elif not resp.get_status():
+        session['status'] = 'fail'
+        session['message'] = resp.get_message()
+        session['registration_status'] = 'fail'
+    else:
+        session['registration_status'] = 'ok'
+        session['status'] = 'ok'
+        session['name'] = name
+        session['uid'] = resp.get_uid()
+]]
+
+
+<body>
+
+<h1>Welcome to the lobby.</h1>
+
+<br>
+
+<fieldset style="clear: both">
+    <f:form style="clear: both"><table cellpadding=10><tr>
+        <td><b>Current host name: [[= session['host'] ]]</b></td>
+        <td><b>Current script path: [[= session['script'] ]]</b></td>
+        <td><a href='index.spy'>Return to change host and script</a></td>
+    </tr></table></f:form>
+</fieldset>
+
+<br>
+
+<fieldset style="clear: both">
+    [[if session['registration_status'] == 'ok': { ]]
+        <table cellpadding=10><tr>
+            <td><h3>Hello, [[ print session['name'] ]]!</h3></td>
+                [[  if session['join'] != '': { ]]
+                        <td><h3>You are playing '[[print session['join'] ]]'</h3></td>
+                        <td><a href='game.spy'><h3>Play!</h3></a></td>
+                        <td><f:form style="clear: both">  
+                        [[if session['using_ai']: { ]]
+                          <f:submit handler="self.ai_setter" value='Disable AI' />
+                         [[} else: { ]]
+                          <f:submit handler="self.ai_setter" value='Enable AI' />
+                         [[ } ]] 
+                        </f:form></td> 
+
+                <td>[[ } 
+                    if session['join_status'] == 'fail': { ]]
+                            [[=session['message'] ]]
+                    [[ } ]]      </td>
+                </div>
+        </tr></table>
+    [[ } else: { ]]
+           <h3>Please register yourself.</h3>
+            <f:form style="clear: both"><div class="simpleform">
+                <f:text name="name" label="Your name:" value="MyName" size=20 maxlength=30 />
+                <br>
+                <br>
+                <f:submit handler="self.register" value="Register me" />
+            </div></f:form>
+            <br>
+            [[ if session['registration_status'] == 'fail': { ]]
+                <div>Registration failed.</div>
+                    [[ if session['status'] != 'ok': {]]
+                        <div>Server message: [[= session['message'] ]] </div>
+                    [[} else : {]]
+                        <div>Error in response: [[= session['server_error'] ]]</div>
+                    [[ } ]]
+            [[ } ]]
+    [[ } ]]
+</fieldset>
+
+<br>
+
+[[if session['registration_status'] == 'ok': { ]]
+    <fieldset style="clear: both">
+        <h3>What do you prefer:</h3>
+        <ul>
+        <li>
+                <h4>Join an existing game.</h4>
+                <div><ol>
+                [[  resp = pool['action'].get_list_of_games().get_list_of_games()
+                    if isinstance(resp, list): {
+                        for game in resp:{
+                            opts = game.get_options()
+                            game_name = game.get_name()
+                            options = ''
+                            if opts[0]:{ options = "attack 6 cards restriction | " }
+                            if opts[1]:{ options += "first attack 5 cards restriction | " }
+                            if opts[2]:{ options += "retransfer" }
+                            game_data = "; ".join([
+                                    "Players: " + ", ".join(game.get_list_of_players()),
+                                    "Required: " + str(game.get_required_number()),
+                                    "<br>Options: " + options
+                                    ])
+                ]]
+                        <f:form>
+                        <input type='hidden' name='game_name' value='[[=game_name]]'/>
+                        <div>[[=game_name]]</div>
+                        <div>[[=game_data]]</div>
+                        <f:submit href='console.spy' handler="self.join_game" value='Join now!'/>
+                        </f:form>
+                        [[ }
+                    }
+                ]]                
+                </ol></div>
+            </li>
+            <li>
+                <h4>Create your own game.</h4>
+                    <f:form style="clear: both"><div class="simpleform">
+                    <f:text name="game_name" label="Game name" value="foolgame" size=20 maxlength=30 /><br><br>
+                    <f:select name=number_of_players label="Number of players: ">
+                        <f:option text="2 players" value=2 />
+                        <f:option text="3 players" value=3 />
+                        <f:option text="4 players" value=4 />
+                        <f:option text="5 players" value=5 />
+                        <f:option text="6 players" value=6 />
+                    </f:select><br><br>
+                        <f:checkbox checked value=0 name="attack_five" label="Attack 6 cards restriction" /><br><br>
+                        <f:checkbox checked value=1 name="attack_six" label="First attack 5 cards restriction" /><br><br>
+                        <f:checkbox checked value=2 name="retransfer" label="Retransfer" /><br><br>
+                    <f:submit handler="self.create_game" value="Create a game" />
+                    </div></f:form>
+            </li>
+        <ul>
+    </fieldset>
+[[ } ]]
+
+<f:form style="clear: both" id='submitter'>
+    <f:submit handler="self.refresh" value="Refresh"/>
+</f:form>
+
+
+</body>

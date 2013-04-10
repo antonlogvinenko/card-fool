@@ -1,0 +1,10 @@
+status:ok
+message:
+
+status:ok
+message:
+uid:VIKTOR
+
+status:ok
+message:
+uid:VIKTOR1

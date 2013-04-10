@@ -1,0 +1,1 @@
+D:\anton\durak_game\tests\unit_test\run_all_tests_in_console.py

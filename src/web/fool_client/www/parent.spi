@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <link rel=stylesheet href="style.css" type="text/css">
+    <title>[[= child.title ]]</title>
+  </head>
+
+  <body>
+    <h1>[[= child.title ]]</h1>
+    <hr>
+
+    [[= child._body ]]
+    
+  </body>
+</html>

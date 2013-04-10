@@ -1,0 +1,12 @@
+status:ok
+message:
+
+status:ok
+message:
+uid:VIKTOR
+
+status:ok
+message:
+
+status:fail
+message:The user can't be in two games at one time

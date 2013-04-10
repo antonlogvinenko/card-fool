@@ -1,0 +1,38 @@
+[[.import names="pool,redirect,session,client_action"]]
+
+[[\
+response.addHeader('Cache-Control', 'no-cache, must-revalidate')
+if 'action' not in pool:
+    pool['action'] = client_action
+    pool['action'].initialize()
+]]
+
+[[!
+def set_host_script(self, api, host, script):
+    session['host'] = host
+    session['script'] = script
+    pool['action'].init_requestor(host, script)
+]]
+
+<h1>Want to play? Welcome!</h1>
+<br><br>
+
+<fieldset style="clear: both">
+    <b>Current host name: [[= session.get('host', '') ]] </b>
+    <br>
+    <b>Current script path: [[= session.get('script', '') ]] </b>
+    <h4>Please enter host and script path to locate game server.<br>
+        You should do it <b>before registering.
+    </h4>
+    <f:form style="clear: both"><div class="simpleform">
+        <f:text name="host" label="Host name" value="localhost:80" size=30 maxlength=50 />
+        <br>
+        <f:text name="script" label="Script name" value="/cgi-bin/commands.py" size=30 maxlength=50 />
+        <br><br>
+        <f:submit handler="self.set_host_script" value="Save" />
+    </div></f:form>
+</fieldset>
+
+<br><br>
+
+<a href='lobby.spy'>Go to the lobby</a>

@@ -1,0 +1,1 @@
+D:\anton\durak_game\src\client\console_client.py

@@ -1,0 +1,3 @@
+command=restart&test=true
+command=register&name=VIKTOR
+command=register&name=VIKTOR

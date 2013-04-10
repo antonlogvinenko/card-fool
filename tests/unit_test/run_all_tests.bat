@@ -1,0 +1,1 @@
+run_all_tests.py > unit_tests_results.txt

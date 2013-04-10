@@ -1,0 +1,8 @@
+Запустить .bat файл. Результаты попадут в
+unit_tests_results.txt. Если при тестировании были ошибки, сообщения об
+исключениях попадают в консоль, в unit_tests_results.txt останутся только результаты тестирования.
+
+Отдельные файлы тестов, которые исполняются здесь, можно найти в директориях:
+\durak_game\src\common\lib\test
+\durak_game\src\server\lib\test
+\durak_game\src\client\lib\test

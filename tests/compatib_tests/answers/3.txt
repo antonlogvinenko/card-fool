@@ -1,0 +1,10 @@
+status:ok
+message:
+
+status:ok
+message:
+uid:VIKTOR
+
+status:fail
+message:The user with such name is already registered
+uid:

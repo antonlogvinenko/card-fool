@@ -1,0 +1,805 @@
+
+The client command object=
+_command = 
+register
+_name = 
+v1
+
+status:ok
+message:
+uid:0
+
+The client command object=
+_command = 
+register
+_name = 
+v2
+
+status:ok
+message:
+uid:1
+
+The client command object=
+_command = 
+register
+_name = 
+v3
+
+status:ok
+message:
+uid:2
+
+The client command object=
+_command = 
+register
+_name = 
+v4
+
+status:ok
+message:
+uid:3
+
+The client command object=
+_command = 
+register
+_name = 
+v5
+
+status:ok
+message:
+uid:4
+
+The client command object=
+_command = 
+register
+_name = 
+v6
+
+status:ok
+message:
+uid:5
+
+The client command object=
+_command = 
+createGame
+_uid = 
+0
+_number_of_players = 
+6
+_game_name = 
+game
+_first_attack_5cards = 
+False
+_attack_6cards = 
+False
+_retransfer = 
+False
+
+status:ok
+message:
+
+The client command object=
+_command = 
+joinGame
+_uid = 
+1
+_game_name = 
+game
+
+status:ok
+message:
+
+The client command object=
+_command = 
+joinGame
+_uid = 
+2
+_game_name = 
+game
+
+status:ok
+message:
+
+The client command object=
+_command = 
+joinGame
+_uid = 
+3
+_game_name = 
+game
+
+status:ok
+message:
+
+The client command object=
+_command = 
+joinGame
+_uid = 
+4
+_game_name = 
+game
+
+status:ok
+message:
+
+The client command object=
+_command = 
+joinGame
+_uid = 
+5
+_game_name = 
+game
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)_attacker_[h6][h7][h8][h9][h0][hJ]
+player:2(v2)_defender_[6]
+player:3(v3)[6]
+player:4(v4)[6]
+player:5(v5)[6]
+player:6(v6)[6]
+active:1
+
+The client command object=
+_command = 
+attack
+_uid = 
+0
+_cards = 
+[h6]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h6'v1']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)_attacker_[h7][h8][h9][h0][hJ]
+player:2(v2)_defender_[6]
+player:3(v3)[6]
+player:4(v4)[6]
+player:5(v5)[6]
+player:6(v6)[6]
+active:2
+
+The client command object=
+_command = 
+cover
+_uid = 
+1
+_cards = 
+[h6<hK]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h6'v1'<hK'v2']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][h0][hJ]
+player:2(v2)_defender_[5]
+player:3(v3)_attacker_[6]
+player:4(v4)[6]
+player:5(v5)[6]
+player:6(v6)[6]
+active:3
+
+The client command object=
+_command = 
+attack
+_uid = 
+2
+_cards = 
+[dK]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h6'v1'<hK'v2'][dK'v3']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][h0][hJ]
+player:2(v2)_defender_[5]
+player:3(v3)[5]
+player:4(v4)_attacker_[6]
+player:5(v5)[6]
+player:6(v6)[6]
+active:4
+
+The client command object=
+_command = 
+attack
+_uid = 
+3
+_cards = 
+[s6]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h6'v1'<hK'v2'][dK'v3'][s6'v4']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][h0][hJ]
+player:2(v2)_defender_[5]
+player:3(v3)[5]
+player:4(v4)[5]
+player:5(v5)_attacker_[6]
+player:6(v6)[6]
+active:5
+
+The client command object=
+_command = 
+skip
+_uid = 
+4
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h6'v1'<hK'v2'][dK'v3'][s6'v4']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][h0][hJ]
+player:2(v2)_defender_[5]
+player:3(v3)[5]
+player:4(v4)[5]
+player:5(v5)[6]
+player:6(v6)_attacker_[6]
+active:6
+
+The client command object=
+_command = 
+skip
+_uid = 
+5
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h6'v1'<hK'v2'][dK'v3'][s6'v4']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)_attacker_[h7][h8][h9][h0][hJ]
+player:2(v2)_defender_[5]
+player:3(v3)[5]
+player:4(v4)[5]
+player:5(v5)[6]
+player:6(v6)[6]
+active:1
+
+The client command object=
+_command = 
+skip
+_uid = 
+0
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h6'v1'<hK'v2'][dK'v3'][s6'v4']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)_attacker_[h7][h8][h9][h0][hJ]
+player:2(v2)_defender_[5]
+player:3(v3)[5]
+player:4(v4)[5]
+player:5(v5)[6]
+player:6(v6)[6]
+active:2
+
+The client command object=
+_command = 
+take
+_uid = 
+1
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][h0][hJ]
+player:2(v2)[9]
+player:3(v3)_attacker_[5]
+player:4(v4)_defender_[5]
+player:5(v5)[6]
+player:6(v6)[6]
+active:3
+
+The client command object=
+_command = 
+attack
+_uid = 
+2
+_cards = 
+[d9]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[d9'v3']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][h0][hJ]
+player:2(v2)[9]
+player:3(v3)_attacker_[4]
+player:4(v4)_defender_[5]
+player:5(v5)[6]
+player:6(v6)[6]
+active:4
+
+The client command object=
+_command = 
+take
+_uid = 
+3
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][h0][hJ]
+player:2(v2)[9]
+player:3(v3)[4]
+player:4(v4)[6]
+player:5(v5)_attacker_[6]
+player:6(v6)_defender_[6]
+active:5
+
+The client command object=
+_command = 
+attack
+_uid = 
+4
+_cards = 
+[c7]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[c7'v5']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][h0][hJ]
+player:2(v2)[9]
+player:3(v3)[4]
+player:4(v4)[6]
+player:5(v5)_attacker_[5]
+player:6(v6)_defender_[6]
+active:6
+
+The client command object=
+_command = 
+take
+_uid = 
+5
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)_attacker_[h7][h8][h9][h0][hJ]
+player:2(v2)_defender_[9]
+player:3(v3)[4]
+player:4(v4)[6]
+player:5(v5)[5]
+player:6(v6)[7]
+active:1
+
+The client command object=
+_command = 
+attack
+_uid = 
+0
+_cards = 
+[h0]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h0'v1']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)_attacker_[h7][h8][h9][hJ]
+player:2(v2)_defender_[9]
+player:3(v3)[4]
+player:4(v4)[6]
+player:5(v5)[5]
+player:6(v6)[7]
+active:2
+
+The client command object=
+_command = 
+cover
+_uid = 
+1
+_cards = 
+[h0<hQ]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h0'v1'<hQ'v2']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][hJ]
+player:2(v2)_defender_[8]
+player:3(v3)_attacker_[4]
+player:4(v4)[6]
+player:5(v5)[5]
+player:6(v6)[7]
+active:3
+
+The client command object=
+_command = 
+attack
+_uid = 
+2
+_cards = 
+[d0, dQ]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h0'v1'<hQ'v2'][d0'v3'][dQ'v3']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][hJ]
+player:2(v2)_defender_[8]
+player:3(v3)[2]
+player:4(v4)_attacker_[6]
+player:5(v5)[5]
+player:6(v6)[7]
+active:4
+
+The client command object=
+_command = 
+attack
+_uid = 
+3
+_cards = 
+[s0]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h0'v1'<hQ'v2'][d0'v3'][dQ'v3'][s0'v4']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][hJ]
+player:2(v2)_defender_[8]
+player:3(v3)[2]
+player:4(v4)[5]
+player:5(v5)_attacker_[5]
+player:6(v6)[7]
+active:5
+
+The client command object=
+_command = 
+attack
+_uid = 
+4
+_cards = 
+[sQ]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h0'v1'<hQ'v2'][d0'v3'][dQ'v3'][s0'v4'][sQ'v5']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)[h7][h8][h9][hJ]
+player:2(v2)_defender_[8]
+player:3(v3)[2]
+player:4(v4)[5]
+player:5(v5)[4]
+player:6(v6)_attacker_[7]
+active:6
+
+The client command object=
+_command = 
+attack
+_uid = 
+5
+_cards = 
+[c0, cQ]
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h0'v1'<hQ'v2'][d0'v3'][dQ'v3'][s0'v4'][sQ'v5'][c0'v6'][cQ'v6']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)_attacker_[h7][h8][h9][hJ]
+player:2(v2)_defender_[8]
+player:3(v3)[2]
+player:4(v4)[5]
+player:5(v5)[4]
+player:6(v6)[5]
+active:1
+
+The client command object=
+_command = 
+skip
+_uid = 
+0
+
+status:ok
+message:
+
+The client command object=
+_command = 
+getGameStatus
+_uid = 
+0
+
+status:ok
+message:
+game:game
+table:[h0'v1'<hQ'v2'][d0'v3'][dQ'v3'][s0'v4'][sQ'v5'][c0'v6'][cQ'v6']
+deck:[0]
+trump:[cA]
+out:
+options:{numberOfPlayers6}
+player:1(v1)_attacker_[h7][h8][h9][hJ]
+player:2(v2)_defender_[8]
+player:3(v3)[2]
+player:4(v4)[5]
+player:5(v5)[4]
+player:6(v6)[5]
+active:2
+----------------------------------------
+Exception happened during processing of request from ('127.0.0.1', 2082)
+----------------------------------------
+----------------------------------------
+Exception happened during processing of request from ('127.0.0.1', 2083)
+----------------------------------------
+
+The client command object=
+_command = 
+register
+_name = 
+v2
+
+status:fail
+message:The user with such name is already registered
+uid:
+
+The client command object=
+_command = 
+register
+_name = 
+v1
+
+status:fail
+message:The user with such name is already registered
+uid:
+
+The client command object=
+_command = 
+register
+_name = 
+v1
+
+status:fail
+message:The user with such name is already registered
+uid:

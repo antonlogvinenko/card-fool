@@ -1,0 +1,5 @@
+127.0.0.1:8080
+/FoolServer/server/selectcommand
+
+
+http://127.0.0.1:8080/FoolClient/
